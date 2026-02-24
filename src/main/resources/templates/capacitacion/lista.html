@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario Capacitacion</title>
+</head>
+<body>
+
+<h2>Formulario Capacitacion</h2>
+
+<form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post">
+    
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombre}" />
+    <br><br>
+
+    <label>Descripcion:</label>
+    <input type="text" th:field="*{descripcion}" />
+    <br><br>
+
+    <label>Horas:</label>
+    <input type="number" th:field="*{horas}" />
+    <br><br>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+<a th:href="@{/capacitaciones}">Volver</a>
+
+</body>
+</html>
