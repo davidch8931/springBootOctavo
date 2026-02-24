@@ -22,6 +22,6 @@ public class HomeController {
             AuthUser user = userRepository.findByCorreo(principal.getName());
             model.addAttribute("nombreUsuario", user.getNombre() + " " + user.getApellido());
         }
-        return "index";
+        return "redirect:/capacitaciones";
     }
 }

@@ -3,10 +3,10 @@
       th:replace="~{index :: layout(~{::#contenido-vista})}">
 
 <body>
-    <div id="contenido-vista">
+    <div id="contenido-vista" style="color: black;">
         <h1 class="h3 mb-4 text-gray-800">Formulario Capacitacion</h1>
 
-        <form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post">
+        <form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post" style="color: black;">
             <input type="hidden" th:field="*{codigo_cap}" />
 
             <div class="form-group">

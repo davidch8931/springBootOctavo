@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered text-dark" id="tablaParticipantes" width="100%" cellspacing="0">
+                    <table class="table table-bordered" style="color: black;" id="tablaParticipantes" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N°</th>
@@ -57,18 +57,15 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div layout:fragment="scripts">
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
+        <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
             $(document).ready(function() {
                 $('#tablaParticipantes').DataTable({
                     language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                        url: 'https://cdn.datatables.net/plug-ins/2.3.7/i18n/es-ES.json'
                     }
                 });
             });
@@ -91,6 +88,5 @@
             }
         </script>
     </div>
-
 </body>
 </html>

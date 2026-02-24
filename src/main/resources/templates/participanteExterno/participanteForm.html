@@ -7,14 +7,14 @@
 </head>
 <body>
 
-    <div id="contenido-vista">
+    <div id="contenido-vista" style="color: black;">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800" th:text="${participante.codigo_parext != null ? 'Editar Participante' : 'Nuevo Participante'}"></h1>
         </div>
 
         <div class="card shadow mb-4 col-lg-8 mx-auto">
             <div class="card-body">
-                <form id="participanteForm" th:action="@{/participanteExterno/guardar}" th:object="${participante}" method="post">
+                <form id="participanteForm" style="color: black;" th:action="@{/participanteExterno/guardar}" th:object="${participante}" method="post" >
                     <input type="hidden" th:field="*{codigo_parext}">
                     
                     <div class="form-group">
