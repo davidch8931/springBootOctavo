@@ -4,55 +4,63 @@
 
 <body>
     <div id="contenido-vista">
-        <h1 class="h3 mb-4 text-gray-800">Lista de Capacitaciones</h1>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Lista de Capacitaciones</h1>
+            <a th:href="@{/capacitaciones/nuevo}" class="btn btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Nueva Capacitación
+            </a>
+        </div>
 
-        <a th:href="@{/capacitaciones/nuevo}" class="btn btn-primary mb-3">
-            Nueva Capacitacion
-        </a>
-
-        <table class="table table-bordered" style="color: black;" id="tablaCapacitaciones" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Área</th>
-                    <th>Nombre del Curso</th>
-                    <th>Instructor</th>
-                    <th>Tipo</th>
-                    <th>Duración (horas)</th>
-                    <th>N° Participantes</th>
-                    <th>Costo</th>
-                    <th>Temario</th>
-                    <th>Evaluación / Plan Acción</th>
-                    <th>Lista Asistentes</th>
-                    <th>Fecha / Hora / Link</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="c : ${capacitaciones}">
-                    <td th:text="${c.codigo_cap}"></td>
-                    <td th:text="${c.area_cap}"></td>
-                    <td th:text="${c.nombre_curso_cap}"></td>
-                    <td th:text="${c.instructor_cap}"></td>
-                    <td th:text="${c.tipo_cap}"></td>
-                    <td th:text="${c.duracion_cap}"></td>
-                    <td th:text="${c.numero_participantes_cap}"></td>
-                    <td th:text="${c.costo_cap}"></td>
-                    <td th:text="${c.temario_cap}"></td>
-                    <td th:text="${c.evaluacion_plan_accion_cap}"></td>
-                    <td th:text="${c.lista_asistentes_cap}"></td>
-                    <td th:text="${c.fecha_hora_link_cap}"></td>
-                    <td th:text="${c.fecha_cap}"></td>
-                    <td>
-                        <a th:href="@{/capacitaciones/editar/{id}(id=${c.codigo_cap})}" class="btn btn-warning btn-sm">Editar</a>
-                        <a th:href="@{/capacitaciones/eliminar/{id}(id=${c.codigo_cap})}" class="btn btn-danger btn-sm">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered" style="color: black;" id="tablaCapacitaciones" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Área</th>
+                        <th>Nombre del Curso</th>
+                        <th>Instructor</th>
+                        <th>Tipo</th>
+                        <th>Duración (horas)</th>
+                        <th>N° Participantes</th>
+                        <th>Costo</th>
+                        <th>Temario</th>
+                        <th>Evaluación / Plan Acción</th>
+                        <th>Lista Asistentes</th>
+                        <th>Fecha / Hora / Link</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${capacitaciones}">
+                        <td th:text="${c.codigo_cap}"></td>
+                        <td th:text="${c.area_cap}"></td>
+                        <td th:text="${c.nombre_curso_cap}"></td>
+                        <td th:text="${c.instructor_cap}"></td>
+                        <td th:text="${c.tipo_cap}"></td>
+                        <td th:text="${c.duracion_cap}"></td>
+                        <td th:text="${c.numero_participantes_cap}"></td>
+                        <td th:text="${c.costo_cap}"></td>
+                        <td th:text="${c.temario_cap}"></td>
+                        <td th:text="${c.evaluacion_plan_accion_cap}"></td>
+                        <td th:text="${c.lista_asistentes_cap}"></td>
+                        <td th:text="${c.fecha_hora_link_cap}"></td>
+                        <td th:text="${c.fecha_cap}"></td>
+                        <td>
+                            <a th:href="@{/capacitaciones/editar/{id}(id=${c.codigo_cap})}" class="btn btn-warning btn-sm" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm" title="Eliminar" th:onclick="'confirmarEliminar(' + ${c.codigo_cap} + ')'">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
         <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function() {
                 $('#tablaCapacitaciones').DataTable({
@@ -61,6 +69,23 @@
                     }
                 });
             });
+
+            function confirmarEliminar(id) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción no se puede deshacer",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4e73df',
+                    cancelButtonColor: '#e74a3b',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/capacitaciones/eliminar/" + id;
+                    }
+                })
+            }
         </script>
     </div>
 </body>

@@ -2,83 +2,231 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{index :: layout(~{::#contenido-vista})}">
 
+<head>
+    <title>Formulario de Capacitación</title>
+</head>
 <body>
+
     <div id="contenido-vista" style="color: black;">
-        <h1 class="h3 mb-4 text-gray-800">Formulario Capacitacion</h1>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:text="${capacitacion.codigo_cap != null ? 'Editar Capacitación' : 'Nueva Capacitación'}"></h1>
+        </div>
 
-        <form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post" style="color: black;">
-            <input type="hidden" th:field="*{codigo_cap}" />
+        <div class="card shadow mb-4 col-lg-10 mx-auto">
+            <div class="card-body">
+                <form id="capacitacionForm" th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post">
+                    <input type="hidden" th:field="*{codigo_cap}" />
 
-            <div class="form-group">
-                <label>Área</label>
-                <input type="text" class="form-control" th:field="*{area_cap}" maxlength="500" required>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Área</label>
+                            <select class="form-control text-dark" th:field="*{area_cap}" name="area_cap">
+                                <option value="">-- Seleccione un área --</option>
+                                <option value="AMBIENTE">AMBIENTE</option>
+                                <option value="AMBIENTAL">AMBIENTAL</option>
+                                <option value="SALUD">SALUD</option>
+                                <option value="INDUSTRIAL">INDUSTRIAL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Nombre del Curso</label>
+                            <input type="text" class="form-control text-dark" th:field="*{nombre_curso_cap}" name="nombre_curso_cap" maxlength="500">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Instructor</label>
+                            <input type="text" class="form-control text-dark" th:field="*{instructor_cap}" name="instructor_cap" maxlength="500">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Tipo</label>
+                            <select class="form-control text-dark" th:field="*{tipo_cap}" name="tipo_cap">
+                                <option value="">-- Seleccione un tipo --</option>
+                                <option value="CHARLA">CHARLA</option>
+                                <option value="INDUCCION">INDUCCION</option>
+                                <option value="CAPACITACIÓN">CAPACITACIÓN</option>
+                                <option value="DIFUSIÓN">DIFUSIÓN</option>
+                                <option value="INCUCCIÓN">INCUCCIÓN</option>
+                                <option value="DISFUSION">DISFUSION</option>
+                                <option value="CERTIFICACIÓN">CERTIFICACIÓN</option>
+                                <option value="PRESENCIAL">PRESENCIAL</option>
+                                <option value="VIRTUAL">VIRTUAL</option>
+                                <option value="LECTURA DE PROCEDIMIENTO">LECTURA DE PROCEDIMIENTO</option>
+                                <option value="INDUCCION LECTURA DEL PROCESO">INDUCCION LECTURA DEL PROCESO</option>
+                                <option value="CHARLA LECTURA DE  PROCEDIMIENTOS">CHARLA LECTURA DE  PROCEDIMIENTOS</option>
+                                <option value="CHARLA DEL PROCESO">CHARLA DEL PROCESO</option>
+                                <option value="CHARLA EN LA FORMACION DEL PROCESO">CHARLA EN LA FORMACION DEL PROCESO</option>
+                                <option value="CHARLA DEL PROCESO EN LA FORMACION">CHARLA DEL PROCESO EN LA FORMACION</option>
+                                <option value="INTERNA">INTERNA</option>
+                                <option value="CHARLA VIA ZOOM">CHARLA VIA ZOOM</option>
+                                <option value="CHARLA Y DIFUSION EN CARTELERA">CHARLA Y DIFUSION EN CARTELERA</option>
+                                <option value="DIGITAL">DIGITAL</option>
+                                <option value="VIRTUAL TEAMS">VIRTUAL TEAMS</option>
+                                <option value="CHARLA TEAMS">CHARLA TEAMS</option>
+                                <option value="FOLLETO Y REGISTRO EN LINEA">FOLLETO Y REGISTRO EN LINEA</option>
+                                <option value="CHARLA VIRTUAL POR TEAMS">CHARLA VIRTUAL POR TEAMS</option>
+                                <option value="EVALUACION POR MICROSOFT FORMS">EVALUACION POR MICROSOFT FORMS</option>
+                                <option value="INDUCCION CHARLA">INDUCCION CHARLA</option>
+                                <option value="EVALUACIÓN">EVALUACIÓN</option>
+                                <option value="SOCIALIZACIÓN">SOCIALIZACIÓN</option>
+                                <option value="SENSIBILIZACIÓN">SENSIBILIZACIÓN</option>
+                                <option value="CHARLA VIA TEAMS">CHARLA VIA TEAMS</option>
+                                <option value="TEORICA - PRACTICA">TEORICA - PRACTICA</option>
+                                <option value="SATISFACCIÓN">SATISFACCIÓN</option>
+                                <option value="CARTELERA">CARTELERA</option>
+                                <option value="INFORMACIÓN COMUNICADO">INFORMACIÓN COMUNICADO</option>
+                                <option value="ENTREGA TRIPTICO">ENTREGA TRIPTICO</option>
+                                <option value="REGISTRO">REGISTRO</option>
+                                <option value="CARGAS ATMS">CARGAS ATMS</option>
+                                <option value="MANUAL">MANUAL</option>
+                                <option value="MEMORANDO">MEMORANDO</option>
+                                <option value="NORMAS BASICAS PARA EL PORTE DE UNA ARMA DE FUEGO">NORMAS BASICAS PARA EL PORTE DE UNA ARMA DE FUEGO</option>
+                                <option value="ENTREGA DE FLYERS RIESGOS PSICOSOCIALES">ENTREGA DE FLYERS RIESGOS PSICOSOCIALES</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="text-dark">Duración (horas)</label>
+                            <input type="number" class="form-control text-dark" th:field="*{duracion_cap}" name="duracion_cap">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="text-dark">N° Participantes</label>
+                            <input type="number" class="form-control text-dark" th:field="*{numero_participantes_cap}" name="numero_participantes_cap">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="text-dark">Costo</label>
+                            <input type="number" step="0.01" class="form-control text-dark" th:field="*{costo_cap}" name="costo_cap">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Fecha</label>
+                            <input type="date" class="form-control text-dark" th:field="*{fecha_cap}" name="fecha_cap" id="fecha_cap">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Fecha / Hora / Link</label>
+                            <input type="datetime-local" class="form-control text-dark" th:field="*{fecha_hora_link_cap}" name="fecha_hora_link_cap" id="fecha_hora_link_cap">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark">Temario</label>
+                        <textarea class="form-control text-dark" th:field="*{temario_cap}" name="temario_cap" maxlength="500" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark">Evaluación / Plan de Acción</label>
+                        <textarea class="form-control text-dark" th:field="*{evaluacion_plan_accion_cap}" name="evaluacion_plan_accion_cap" maxlength="500" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark">Lista de Asistentes</label>
+                        <textarea class="form-control text-dark" th:field="*{lista_asistentes_cap}" name="lista_asistentes_cap" maxlength="500" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark">Código Estudiante</label>
+                        <input type="number" class="form-control text-dark" th:field="*{fk_codigo_est}" name="fk_codigo_est">
+                    </div>
+
+                    <hr>
+                    <div class="text-right">
+                        <a th:href="@{/capacitaciones}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar</button>
+                    </div>
+                </form>
             </div>
+        </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var hoy = new Date();
+                hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
+                
+                var fechaMinimaDate = hoy.toISOString().split('T')[0];
+                var fechaMinimaDateTime = hoy.toISOString().slice(0, 16);
+                
+                $('#fecha_cap').attr('min', fechaMinimaDate);
+                $('#fecha_hora_link_cap').attr('min', fechaMinimaDateTime);
 
-            <div class="form-group">
-                <label>Nombre del Curso</label>
-                <input type="text" class="form-control" th:field="*{nombre_curso_cap}" maxlength="500" required>
-            </div>
-
-            <div class="form-group">
-                <label>Instructor</label>
-                <input type="text" class="form-control" th:field="*{instructor_cap}" maxlength="500" required>
-            </div>
-
-            <div class="form-group">
-                <label>Tipo</label>
-                <input type="text" class="form-control" th:field="*{tipo_cap}" maxlength="500" required>
-            </div>
-
-            <div class="form-group">
-                <label>Duración (horas)</label>
-                <input type="number" class="form-control" th:field="*{duracion_cap}" min="1" required>
-            </div>
-
-            <div class="form-group">
-                <label>Número de Participantes</label>
-                <input type="number" class="form-control" th:field="*{numero_participantes_cap}" min="1" required>
-            </div>
-
-            <div class="form-group">
-                <label>Costo</label>
-                <input type="number" step="0.01" class="form-control" th:field="*{costo_cap}" min="0" required>
-            </div>
-
-            <div class="form-group">
-                <label>Temario</label>
-                <textarea class="form-control" th:field="*{temario_cap}" maxlength="500"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Evaluación / Plan de Acción</label>
-                <textarea class="form-control" th:field="*{evaluacion_plan_accion_cap}" maxlength="500"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Lista de Asistentes</label>
-                <textarea class="form-control" th:field="*{lista_asistentes_cap}" maxlength="500"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Fecha / Hora / Link</label>
-                <input type="text" class="form-control" th:field="*{fecha_hora_link_cap}">
-            </div>
-
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" th:field="*{fecha_cap}" required>
-            </div>
-
-            <div class="form-group">
-                <label>FK Código Estudiante</label>
-                <input type="number" class="form-control" th:field="*{fk_codigo_est}" min="1">
-            </div>
-
-            <br>
-
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a th:href="@{/capacitaciones}" class="btn btn-secondary">Volver</a>
-        </form>
+                $("#capacitacionForm").validate({
+                    errorClass: "text-danger small mt-1",
+                    errorElement: "div",
+                    rules: {
+                        area_cap: "required",
+                        nombre_curso_cap: { required: true, minlength: 5 },
+                        instructor_cap: { required: true, minlength: 5 },
+                        tipo_cap: "required",
+                        duracion_cap: { required: true, min: 1, max:40 },
+                        numero_participantes_cap: { required: true, min: 1, max: 50 },
+                        costo_cap: { required: true, min: 0 },
+                        fecha_cap: { required: true },
+                        fecha_hora_link_cap: { required: true },
+                        temario_cap: { required: true, minlength: 5 },
+                        evaluacion_plan_accion_cap: { required: true, minlength: 5 },
+                        lista_asistentes_cap: { required: true, minlength: 5 },
+                        fk_codigo_est: { required: true, min: 1, digits: true }
+                    },
+                    messages: {
+                        area_cap: "Seleccione un área",
+                        nombre_curso_cap: { 
+                            required: "El nombre del curso es obligatorio", 
+                            minlength: "Debe tener al menos 5 caracteres" 
+                        },
+                        instructor_cap: { 
+                            required: "El instructor es obligatorio", 
+                            minlength: "Debe tener al menos 5 caracteres" 
+                        },
+                        tipo_cap: "Seleccione un tipo",
+                        duracion_cap: { 
+                            required: "La duración es obligatoria", 
+                            min: "La duración mínima es de 1 hora",
+                            max: "La duración máxima es de 40 horas"
+                        },
+                        numero_participantes_cap: { 
+                            required: "El número de participantes es obligatorio", 
+                            min: "Debe haber al menos 1 participante" ,
+                            max: "Debe haber maximo 50 participante"
+                        },
+                        costo_cap: { 
+                            required: "El costo es obligatorio", 
+                            min: "El costo no puede ser negativo" 
+                        },
+                        fecha_cap: { 
+                            required: "La fecha es obligatoria",
+                            min: "La fecha no puede ser anterior al día de hoy"
+                        },
+                        fecha_hora_link_cap: { 
+                            required: "La fecha y hora son obligatorias", 
+                            min: "La fecha y hora no pueden ser anteriores al momento actual" 
+                        },
+                        temario_cap: { 
+                            required: "El temario es obligatorio", 
+                            minlength: "Debe tener al menos 5 caracteres" 
+                        },
+                        evaluacion_plan_accion_cap: { 
+                            required: "Este campo es obligatorio", 
+                            minlength: "Debe tener al menos 5 caracteres" 
+                        },
+                        lista_asistentes_cap: { 
+                            required: "La lista de asistentes es obligatoria", 
+                            minlength: "Debe tener al menos 5 caracteres" 
+                        },
+                        fk_codigo_est: { 
+                            required: "El código de estudiante es obligatorio", 
+                            min: "El código debe ser mayor a 0" ,
+                            digits: "Solo se permiten números"
+                        }
+                    }
+                });
+            });
+        </script>
     </div>
+
 </body>
 </html>

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.utc.project.entity.AuthUser;
+import com.utc.project.repository.AuthUserRepository;
+import java.security.Principal;
 
 import java.util.List;
 
@@ -16,6 +19,20 @@ public class CapacitacionController {
 
     @Autowired
     private CapacitacionRepository capacitacionRepository;
+
+    @Autowired
+    private AuthUserRepository userRepository;
+
+    @ModelAttribute("nombreUsuario")
+    public String getNombreUsuario(Principal principal) {
+        if (principal != null) {
+            AuthUser user = userRepository.findByCorreo(principal.getName());
+            if (user != null) {
+                return user.getNombre() + " " + user.getApellido();
+            }
+        }
+        return "Usuario";
+    }
 
     // LISTAR
     @GetMapping
