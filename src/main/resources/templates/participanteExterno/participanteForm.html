@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{index :: layout(~{::#contenido-vista})}">
+
+<head>
+    <title>Formulario de Participante</title>
+</head>
+<body>
+
+    <div id="contenido-vista">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:text="${participante.codigo_parext != null ? 'Editar Participante' : 'Nuevo Participante'}"></h1>
+        </div>
+
+        <div class="card shadow mb-4 col-lg-8 mx-auto">
+            <div class="card-body">
+                <form id="participanteForm" th:action="@{/participanteExterno/guardar}" th:object="${participante}" method="post">
+                    <input type="hidden" th:field="*{codigo_parext}">
+                    
+                    <div class="form-group">
+                        <label class="text-dark">Capacitación Destino</label>
+                        <select class="form-control text-dark" th:field="*{capacitacion}" name="capacitacion">
+                            <option value="">-- Seleccione una capacitación --</option>
+                            <option th:each="cap : ${capacitaciones}" 
+                                    th:value="${cap.codigo_cap}" 
+                                    th:text="${cap.nombre_curso_cap}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-dark">Identificación</label>
+                        <input type="text" class="form-control text-dark" th:field="*{identificacion_parext}" name="identificacion_parext">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Nombres</label>
+                            <input type="text" class="form-control text-dark" th:field="*{nombre_parext}" name="nombre_parext">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Apellidos</label>
+                            <input type="text" class="form-control text-dark" th:field="*{apellido_parext}" name="apellido_parext">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Teléfono</label>
+                            <input type="text" class="form-control text-dark" th:field="*{telefono_parext}" name="telefono_parext">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="text-dark">Email</label>
+                            <input type="email" class="form-control text-dark" th:field="*{email_parext}" name="email_parext">
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="text-right">
+                        <a th:href="@{/participanteExterno}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="scripts">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#participanteForm").validate({
+                    errorClass: "text-danger small mt-1",
+                    errorElement: "div",
+                    rules: {
+                        capacitacion: "required",
+                        identificacion_parext: { required: true, minlength: 5 },
+                        nombre_parext: "required",
+                        apellido_parext: "required",
+                        email_parext: { required: true, email: true },
+                        telefono_parext: { 
+                            required: true, 
+                            digits: true, 
+                            minlength: 10, 
+                            maxlength: 10 
+                        }
+                    },
+                    messages: {
+                        capacitacion: "Seleccione una capacitación",
+                        identificacion_parext: "Ingrese la identificación",
+                        nombre_parext: "El nombre es obligatorio",
+                        apellido_parext: "El apellido es obligatorio",
+                        email_parext: "Ingrese un correo válido",
+                        telefono_parext: {
+                            required: "El teléfono es obligatorio",
+                            digits: "Solo números",
+                            minlength: "Debe tener 10 dígitos",
+                            maxlength: "Debe tener 10 dígitos"
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{index :: layout(~{::#contenido-vista})}">
+
+<head>
+    <title>Lista de Participantes Externos</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+
+    <div id="contenido-vista"> 
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Participantes Externos</h1>
+            <a th:href="@{/participanteExterno/nuevo}" class="btn btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Nuevo Participante
+            </a>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Listado General</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-dark" id="tablaParticipantes" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Identificación</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>Contacto</th>
+                                <th>Capacitación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p, iterStat : ${participantes}">
+                                <td th:text="${iterStat.count}"></td>
+                                <td th:text="${p.identificacion_parext}"></td>
+                                <td th:text="${p.nombre_parext + ' ' + p.apellido_parext}"></td>
+                                <td>
+                                    <small th:text="'Telf: ' + ${p.telefono_parext}"></small><br>
+                                    <small th:text="'Email: ' + ${p.email_parext}"></small>
+                                </td>
+                                <td th:text="${p.capacitacion != null ? p.capacitacion.nombre_curso_cap : 'Sin capacitación'}"></td>
+                                <td class="text-center">
+                                    <a th:href="@{/participanteExterno/editar/{id}(id=${p.codigo_parext})}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-danger btn-sm" th:onclick="'confirmarEliminar(' + ${p.codigo_parext} + ')'">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="scripts">
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#tablaParticipantes').DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                    }
+                });
+            });
+
+            function confirmarEliminar(id) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción no se puede deshacer",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4e73df',
+                    cancelButtonColor: '#e74a3b',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/participanteExterno/eliminar/" + id;
+                    }
+                })
+            }
+        </script>
+    </div>
+
+</body>
+</html>

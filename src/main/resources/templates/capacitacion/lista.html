@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{index :: layout}">
+      th:replace="~{index :: layout(~{::#contenido-vista})}">
 
 <body>
-    <div th:fragment="content">
+    <div id="contenido-vista">
         <h1 class="h3 mb-4 text-gray-800">Lista de Capacitaciones</h1>
 
         <a th:href="@{/capacitaciones/nuevo}" class="btn btn-primary mb-3">
