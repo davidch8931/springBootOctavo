@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
     AuthUser findByCorreo(String correo);
+    boolean existsByCorreo(String correo);
+    boolean existsByTelefono(String telefono);
 }

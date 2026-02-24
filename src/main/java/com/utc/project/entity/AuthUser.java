@@ -12,6 +12,7 @@ public class AuthUser {
     private String apellido;
     @Column(unique = true)
     private String correo;
+    @Column(unique = true)
     private String telefono;
     private String password;
 
@@ -63,16 +64,7 @@ public class AuthUser {
         this.password = password;
     }
 
-    private String codigoVerificacion;
     private boolean cuentaVerificada;
-
-    public String getCodigoVerificacion() {
-        return codigoVerificacion;
-    }
-
-    public void setCodigoVerificacion(String codigoVerificacion) {
-        this.codigoVerificacion = codigoVerificacion;
-    }
 
     public boolean isCuentaVerificada() {
         return cuentaVerificada;

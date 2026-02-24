@@ -21,4 +21,12 @@ public class EmailService {
         mensaje.setText("Tu código de verificación es: " + codigo);
         mailSender.send(mensaje);
     }
+    public void enviarCorreoRestablecimiento(String destino, String codigo) {
+    org.springframework.mail.SimpleMailMessage mensaje = new org.springframework.mail.SimpleMailMessage();
+    mensaje.setFrom("controlapp6@gmail.com");
+    mensaje.setTo(destino);
+    mensaje.setSubject("Restablecer Contraseña");
+    mensaje.setText("Tu código para restablecer la contraseña es: " + codigo + "\nEste código expira en 15 minutos.");
+    mailSender.send(mensaje);
+}
 }

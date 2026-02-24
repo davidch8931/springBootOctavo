@@ -11,13 +11,11 @@
 
     <title>SB Admin 2 - Register</title>
 
-    <!-- Custom fonts for this template-->
     <link th:href="@{/sbAdmin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
     <link th:href="@{/sbAdmin/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
@@ -28,7 +26,6 @@
 
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-block" 
                         th:style="'background: url(' + @{/img/register.svg} + ') center center no-repeat; background-size: contain;'">
@@ -38,36 +35,57 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
                             </div>
+                            <div th:if="${errorCorreo}" class="alert alert-danger small text-center">
+                                El correo electrónico ya se encuentra registrado.
+                            </div>
+                            <div th:if="${errorTelefono}" class="alert alert-danger small text-center">
+                                El número de teléfono ya se encuentra registrado.
+                            </div>
+
                             <form class="user" id="registerForm" th:action="@{/registro}" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" name="nombre" placeholder="Nombre">
+                                        <input type="text" class="form-control text-dark" name="nombre" placeholder="Nombre" th:value="${dto.nombre}">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" name="apellido" placeholder="Apellido">
+                                        <input type="text" class="form-control text-dark" name="apellido" placeholder="Apellido" th:value="${dto.apellido}">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="correo" placeholder="Correo Electrónico">
+                                    <input type="email" class="form-control text-dark" name="correo" placeholder="Correo Electrónico" th:value="${dto.correo}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="telefono" placeholder="Teléfono">
+                                    <input type="text" class="form-control text-dark" name="telefono" placeholder="Teléfono" th:value="${dto.telefono}">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Contraseña">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control text-dark" id="password" name="password" placeholder="Contraseña">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-white" style="cursor: pointer;" onclick="togglePassword('password', this)">
+                                                    <i class="fas fa-eye text-primary"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" name="confirmarPassword" placeholder="Confirmar Contraseña">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control text-dark" id="confirmarPassword" name="confirmarPassword" placeholder="Confirmar Contraseña">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-white" style="cursor: pointer;" onclick="togglePassword('confirmarPassword', this)">
+                                                    <i class="fas fa-eye text-primary"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-block">
                                     Registrar Cuenta
                                 </button>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" th:href="@{/iniciar-sesion}">¿Ya tienes una cuenta? Inicia sesión</a>
+                                <a th:href="@{/iniciar-sesion}">¿Ya tienes una cuenta? Inicia sesión</a>
                             </div>
                         </div>
                     </div>
@@ -77,14 +95,9 @@
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
     <script th:src="@{/sbAdmin/vendor/jquery/jquery.min.js}"></script>
     <script th:src="@{/sbAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-    <!-- Core plugin JavaScript-->
     <script th:src="@{/sbAdmin/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-    <!-- Custom scripts for all pages-->
     <script th:src="@{/sbAdmin/js/sb-admin-2.min.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
@@ -93,24 +106,48 @@
             $("#registerForm").validate({
                 errorClass: "text-danger small mt-1",
                 errorElement: "div",
+                errorPlacement: function(error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
                 rules: {
-                    nombre: "required",
-                    apellido: "required",
+                    nombre: "required",minlength:3,
+                    apellido: "required", minlength:3,
                     correo: { required: true, email: true },
-                    telefono: "required",
+                    telefono: { required: true, digits: true, minlength: 10, maxlength: 10 },
                     password: { required: true, minlength: 6 },
                     confirmarPassword: { required: true, equalTo: "#password" }
                 },
                 messages: {
-                    nombre: "El nombre es obligatorio",
-                    apellido: "El apellido es obligatorio",
+                    nombre: "El nombre es obligatorio", minlength:"El nombre debe tener al menos 3 caracteres",
+                    apellido: "El apellido es obligatorio", minlength:"El apellido debe tener al menos 3 caracteres",
                     correo: "Ingrese un correo válido",
-                    telefono: "El teléfono es obligatorio",
+                    telefono: { 
+                        required: "El teléfono es obligatorio", 
+                        digits: "Solo se permiten números enteros", 
+                        minlength: "Debe tener exactamente 10 dígitos", 
+                        maxlength: "Debe tener exactamente 10 dígitos" 
+                    },
                     password: "Mínimo 6 caracteres",
                     confirmarPassword: "Las contraseñas no coinciden"
                 }
             });
         });
+
+        function togglePassword(inputId, el) {
+            let input = document.getElementById(inputId);
+            let icon = $(el).find('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.removeClass("fa-eye text-primary").addClass("fa-eye-slash text-danger");
+            } else {
+                input.type = "password";
+                icon.removeClass("fa-eye-slash text-danger").addClass("fa-eye text-primary");
+            }
+        }
     </script>
 
 </body>
