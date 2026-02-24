@@ -46,7 +46,7 @@ public class ParticipanteExternoController {
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("participante", new ParticipanteExterno());
-        model.addAttribute("capacitaciones", capacitacionRepository.findAll());
+        model.addAttribute("capacitaciones", capacitacionRepository.encontrarCursosUnicos());
         return "participanteExterno/participanteForm";
     }
 
