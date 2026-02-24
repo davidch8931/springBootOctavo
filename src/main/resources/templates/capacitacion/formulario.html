@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Capacitaciones</title>
+</head>
+<body>
+
+<h2>Lista de Capacitaciones</h2>
+
+<a th:href="@{/capacitaciones/nuevo}">Nueva Capacitacion</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Horas</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${capacitaciones}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.nombre}"></td>
+            <td th:text="${c.descripcion}"></td>
+            <td th:text="${c.horas}"></td>
+            <td>
+                <a th:href="@{/capacitaciones/editar/{id}(id=${c.id})}">Editar</a>
+                |
+                <a th:href="@{/capacitaciones/eliminar/{id}(id=${c.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
