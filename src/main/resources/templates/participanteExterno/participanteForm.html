@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <label class="text-dark">Identificación</label>
-                        <input type="text" class="form-control text-dark" th:field="*{identificacion_parext}" name="identificacion_parext">
+                        <input type="text" maxlength="10" class="form-control text-dark" th:field="*{identificacion_parext}" name="identificacion_parext">
                     </div>
 
                     <div class="row">
@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label class="text-dark">Teléfono</label>
-                            <input type="text" class="form-control text-dark" th:field="*{telefono_parext}" name="telefono_parext">
+                            <input type="text" maxlength="10" class="form-control text-dark" th:field="*{telefono_parext}" name="telefono_parext">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="text-dark">Email</label>
