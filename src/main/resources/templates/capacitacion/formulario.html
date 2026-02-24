@@ -1,40 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Lista Capacitaciones</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{index :: layout}">
+
 <body>
+    <div th:fragment="content">
+        <h1 class="h3 mb-4 text-gray-800">Formulario Capacitacion</h1>
 
-<h2>Lista de Capacitaciones</h2>
+        <form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post">
+            <input type="hidden" th:field="*{codigo_cap}" />
 
-<a th:href="@{/capacitaciones/nuevo}">Nueva Capacitacion</a>
+            <div class="form-group">
+                <label>Área</label>
+                <input type="text" class="form-control" th:field="*{area_cap}" maxlength="500" required>
+            </div>
 
-<br><br>
+            <div class="form-group">
+                <label>Nombre del Curso</label>
+                <input type="text" class="form-control" th:field="*{nombre_curso_cap}" maxlength="500" required>
+            </div>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Horas</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="c : ${capacitaciones}">
-            <td th:text="${c.id}"></td>
-            <td th:text="${c.nombre}"></td>
-            <td th:text="${c.descripcion}"></td>
-            <td th:text="${c.horas}"></td>
-            <td>
-                <a th:href="@{/capacitaciones/editar/{id}(id=${c.id})}">Editar</a>
-                |
-                <a th:href="@{/capacitaciones/eliminar/{id}(id=${c.id})}">Eliminar</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <div class="form-group">
+                <label>Instructor</label>
+                <input type="text" class="form-control" th:field="*{instructor_cap}" maxlength="500" required>
+            </div>
 
+            <div class="form-group">
+                <label>Tipo</label>
+                <input type="text" class="form-control" th:field="*{tipo_cap}" maxlength="500" required>
+            </div>
+
+            <div class="form-group">
+                <label>Duración (horas)</label>
+                <input type="number" class="form-control" th:field="*{duracion_cap}" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Número de Participantes</label>
+                <input type="number" class="form-control" th:field="*{numero_participantes_cap}" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Costo</label>
+                <input type="number" step="0.01" class="form-control" th:field="*{costo_cap}" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Temario</label>
+                <textarea class="form-control" th:field="*{temario_cap}" maxlength="500"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Evaluación / Plan de Acción</label>
+                <textarea class="form-control" th:field="*{evaluacion_plan_accion_cap}" maxlength="500"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Lista de Asistentes</label>
+                <textarea class="form-control" th:field="*{lista_asistentes_cap}" maxlength="500"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha / Hora / Link</label>
+                <input type="text" class="form-control" th:field="*{fecha_hora_link_cap}">
+            </div>
+
+            <div class="form-group">
+                <label>Fecha</label>
+                <input type="date" class="form-control" th:field="*{fecha_cap}" required>
+            </div>
+
+            <div class="form-group">
+                <label>FK Código Estudiante</label>
+                <input type="number" class="form-control" th:field="*{fk_codigo_est}" min="1">
+            </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a th:href="@{/capacitaciones}" class="btn btn-secondary">Volver</a>
+        </form>
+    </div>
 </body>
 </html>

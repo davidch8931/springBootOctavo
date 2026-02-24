@@ -1,33 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Formulario Capacitacion</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{index :: layout}">
+
 <body>
+    <div th:fragment="content">
+        <h1 class="h3 mb-4 text-gray-800">Lista de Capacitaciones</h1>
 
-<h2>Formulario Capacitacion</h2>
+        <a th:href="@{/capacitaciones/nuevo}" class="btn btn-primary mb-3">
+            Nueva Capacitacion
+        </a>
 
-<form th:action="@{/capacitaciones/guardar}" th:object="${capacitacion}" method="post">
-    
-    <input type="hidden" th:field="*{id}" />
-
-    <label>Nombre:</label>
-    <input type="text" th:field="*{nombre}" />
-    <br><br>
-
-    <label>Descripcion:</label>
-    <input type="text" th:field="*{descripcion}" />
-    <br><br>
-
-    <label>Horas:</label>
-    <input type="number" th:field="*{horas}" />
-    <br><br>
-
-    <button type="submit">Guardar</button>
-</form>
-
-<br>
-<a th:href="@{/capacitaciones}">Volver</a>
-
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Área</th>
+                    <th>Nombre del Curso</th>
+                    <th>Instructor</th>
+                    <th>Tipo</th>
+                    <th>Duración (horas)</th>
+                    <th>N° Participantes</th>
+                    <th>Costo</th>
+                    <th>Temario</th>
+                    <th>Evaluación / Plan Acción</th>
+                    <th>Lista Asistentes</th>
+                    <th>Fecha / Hora / Link</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${capacitaciones}">
+                    <td th:text="${c.codigo_cap}"></td>
+                    <td th:text="${c.area_cap}"></td>
+                    <td th:text="${c.nombre_curso_cap}"></td>
+                    <td th:text="${c.instructor_cap}"></td>
+                    <td th:text="${c.tipo_cap}"></td>
+                    <td th:text="${c.duracion_cap}"></td>
+                    <td th:text="${c.numero_participantes_cap}"></td>
+                    <td th:text="${c.costo_cap}"></td>
+                    <td th:text="${c.temario_cap}"></td>
+                    <td th:text="${c.evaluacion_plan_accion_cap}"></td>
+                    <td th:text="${c.lista_asistentes_cap}"></td>
+                    <td th:text="${c.fecha_hora_link_cap}"></td>
+                    <td th:text="${c.fecha_cap}"></td>
+                    <td>
+                        <a th:href="@{/capacitaciones/editar/{id}(id=${c.codigo_cap})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/capacitaciones/eliminar/{id}(id=${c.codigo_cap})}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
